@@ -17,4 +17,4 @@ jobs:
 
         sleep 10
 
-        openssl s_client -connect https://temporal.apptest.local
+        curl -vI https://temporal.apptest.local
