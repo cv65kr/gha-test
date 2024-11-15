@@ -13,6 +13,6 @@ jobs:
 
     - name: Run Docker Compose
       run: |
-        docker compose up -d --build
+        docker compose up -d
 
         openssl s_client -connect https://temporal.apptest.local
