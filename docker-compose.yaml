@@ -21,6 +21,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/letsencrypt"
+    networks:
+      - temporal-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`apptest.local`)"
@@ -36,6 +38,8 @@ services:
     image: postgres:latest
     ports:
       - 5432:5432
+    networks:
+      - temporal-network
 
   temporal:
     container_name: temporal
@@ -51,6 +55,8 @@ services:
     image: temporalio/auto-setup:latest
     volumes:
       - ./dynamicconfig:/etc/temporal/config/dynamicconfig
+    networks:
+      - temporal-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grpc.rule=Host(`temporal.apptest.local`)"
@@ -69,3 +75,10 @@ services:
     image: temporalio/admin-tools:latest
     stdin_open: true
     tty: true
+    networks:
+      - temporal-network
+
+networks:
+  temporal-network:
+    driver: bridge
+    name: temporal-network
