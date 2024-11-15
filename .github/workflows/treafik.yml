@@ -11,6 +11,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Add hosts to /etc/hosts
+      run: |
+          sudo echo "127.0.0.1 temporal.apptest.local" | sudo tee -a /etc/hosts
+
     - name: Run Docker Compose
       run: |
         docker compose up -d
