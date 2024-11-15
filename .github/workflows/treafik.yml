@@ -23,4 +23,4 @@ jobs:
 
         docker compose ps
 
-        curl -vI https://temporal.apptest.local
+        openssl s_client -connect https://temporal.apptest.local
